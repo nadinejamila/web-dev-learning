@@ -265,12 +265,24 @@ for i in range(0, 6):
     # This only prints out the numbers from 0 to 5
 ```
 #### `while` Loop
-
+A `while` loop will keep executing the code block under it as long as a boolean expression is True. It runs until the expression is False.
+###### Rules on `while` loops
+- use sparingly
+- make sure it becomes `False` at some point
+- print out your test variable at the top & nottom of the loop to see that it's doing
+```python
+i = 0
+while i < 3:
+   print "from", i
+   i = i + 1
+   print "to", i
+```
 
 ## Data Structures
 
 #### Lists
-Lists may contain items such as strings, numbers, objects, another list, etc., possibly of different types. These are the common list operations:
+Lists may contain items such as strings, numbers, objects, another list, etc., possibly of different types.
+###### List operations
 - `append(object)`
 - `count(value)`
 - `extend(iterable)`
@@ -280,3 +292,6 @@ Lists may contain items such as strings, numbers, objects, another list, etc., p
 - `remove(value)`
 - `reverse()`
 - `sort()`
+
+###### Accessing elements
+`list[index]` wherein index is the nth position of the element, starting from zero.
