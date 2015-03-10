@@ -255,3 +255,28 @@ else:
     print "This does not get print out."
 ```
 Python only runs the first block it determines to be True, so it will run on the third one, and stop after that.
+
+#### `for` Loop
+`for` loops allow us to do repetitive things very quickly.
+The `range()` gives us a list of numbers which is very useful for our `for` loops. However, this function only does numbers from the first to the last, not including the last.
+```python
+for i in range(0, 6):
+    print i
+    # This only prints out the numbers from 0 to 5
+```
+#### `while` Loop
+
+
+## Data Structures
+
+#### Lists
+Lists may contain items such as strings, numbers, objects, another list, etc., possibly of different types. These are the common list operations:
+- `append(object)`
+- `count(value)`
+- `extend(iterable)`
+- `index(value)`
+- `insert(index)`
+- `pop([index])`
+- `remove(value)`
+- `reverse()`
+- `sort()`
