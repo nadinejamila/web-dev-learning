@@ -1,5 +1,6 @@
 # Notes on Learn Python the Hard Way
 These are my personal notes for the important things not to be missed out from the book.
+
 ## Data Output
 #### The print statement
 We display objects such as strings and integers with `print`.
@@ -107,6 +108,7 @@ print "The script is called:", script
 print "My name is %s, but you can call me %s." % (name, nickname)
 ```
 
+
 ## Working with Files
 
 #### Reading Files
@@ -163,6 +165,7 @@ target.close()
 reminders: 
 - `open(filename, 'w')` is used for writing files. An existing file with the same name will be **erased**.
 - **Always** close a file after opening them. Open files consume system resources, and depending on the file mode, other programs may not be able to access them. 
+
 
 ## Functions
 Functions do 3 things:
@@ -222,3 +225,33 @@ def get_the_sum(num1, num2):
 the_sum = get_the_sum(1, 2) #The function returned something
 print the_sum
 ```
+
+
+## Logic & Control Flow
+
+#### Truth terms
+- `and`
+- `or`
+- `not`
+- `!=` (not equal)
+- `==` (equal)
+- `>=` (greater than or equal)
+- `<=` (less than or equal)
+- `True`
+- `False`
+- 
+## `if` Statements
+- An `if` statement creates a "branch" in the code. Meaning, if the boolean expression after `if` is True, the code under it, i.e. the indented block, is run.
+- An `elif` statement, also knows as "else if", creates another branch of code as we add another boolean expression.
+- An `else` statement is run when all previous statements are not True.
+```python
+if False:
+    print "This does not get printed out."
+elif False:
+    print "This does not get print out."
+elif True:
+    print "This gets printed out."
+else:
+    print "This does not get print out."
+```
+Python only runs the first block it determines to be True, so it will run on the third one, and stop after that.
