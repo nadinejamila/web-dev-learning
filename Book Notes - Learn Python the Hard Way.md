@@ -239,8 +239,8 @@ print the_sum
 - `<=` (less than or equal)
 - `True`
 - `False`
-- 
-## `if` Statements
+
+#### `if` Statements
 - An `if` statement creates a "branch" in the code. Meaning, if the boolean expression after `if` is True, the code under it, i.e. the indented block, is run.
 - An `elif` statement, also knows as "else if", creates another branch of code as we add another boolean expression.
 - An `else` statement is run when all previous statements are not True.
