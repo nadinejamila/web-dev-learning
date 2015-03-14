@@ -278,10 +278,45 @@ while i < 3:
    print "to", i
 ```
 
+## Key Words
+
+- `as` - rename an item
+
+    ```python
+    import random as rnd
+
+    for i in range(10):
+      print rnd.randint(1, 10)
+    ```
+- `assert` - ensure that something is True
+    
+    ```python
+    assert False, "Error"
+    ```
+- `exec` - run a string as Python
+
+    ```python
+    exec 'print "hello"'
+    ```
+- `lambda` - create a short anonymous function
+
+    ```python
+    s = lambda y: y ** y
+    s(3)
+    ```
+- `yield` - pause here and return to caller
+
+    ```python
+    def X():
+      yield Y
+    X().next()
+    ```
+[see more keywords here](http://learnpythonthehardway.org/book/ex37.html)
+
 ## Data Structures
 
 #### Lists
-Lists may contain items such as strings, numbers, objects, another list, etc., possibly of different types.
+A list is for an *ordered* list of items such as strings, numbers, objects, another list, etc., possibly of different types.
 ###### List operations
 - `append(object)`
 - `count(value)`
@@ -296,31 +331,26 @@ Lists may contain items such as strings, numbers, objects, another list, etc., p
 ###### Accessing elements
 `list[index]` wherein index is the nth position of the element, starting from zero.
 
-## Key Words
+#### Dictionaries
+A dictionary (or dict) is for matching some items (called "keys") to other items (called "values").
+```python
+# create a dictionary
+args = {}
 
-- `as` - We use the `as` keyword if we want to give a module a different alias.
-    ```python
-    import random as rnd
+# add items
+args['name'] = 'Nadine'
+args['age'] = 23
 
-    for i in range(10):
-      print rnd.randint(1, 10)
-    ```
-- `assert` - ensure that something is True
-    ```python
-    assert False, "Error"
-    ```
-- `exec` - run a string as Python
-    ```python
-    exec 'print "hello"'
-    ```
-- `lambda` - create a short anonymous function
-    ```python
-    s = lambda y: y ** y
-    s(3)
-    ```
-- `yield` - pause here and return to caller
-    ```python
-    def X():
-      yield Y
-    X().next()
-    ```
+# get an item
+name = args.get('name', 'Does Not Exist')
+
+# delete items
+del args['age']
+
+# show contents as a dictionary
+print args
+# This would show {'name': 'Nadine, 'age': 23}
+
+# show key value pairs as tuple
+print args.items()
+```
