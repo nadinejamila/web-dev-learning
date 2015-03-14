@@ -295,3 +295,32 @@ Lists may contain items such as strings, numbers, objects, another list, etc., p
 
 ###### Accessing elements
 `list[index]` wherein index is the nth position of the element, starting from zero.
+
+## Key Words
+
+- `as` - We use the `as` keyword if we want to give a module a different alias.
+    ```python
+    import random as rnd
+
+    for i in range(10):
+      print rnd.randint(1, 10)
+    ```
+- `assert` - ensure that something is True
+    ```python
+    assert False, "Error"
+    ```
+- `exec` - run a string as Python
+    ```python
+    exec 'print "hello"'
+    ```
+- `lambda` - create a short anonymous function
+    ```python
+    s = lambda y: y ** y
+    s(3)
+    ```
+- `yield` - pause here and return to caller
+    ```python
+    def X():
+      yield Y
+    X().next()
+    ```
