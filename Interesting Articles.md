@@ -13,6 +13,8 @@
     - Descriptors
     - Multiple Inheritance: The Diamond Rule
     - Attribute Access
+
+#### COMPUTING
 - [Finite State Machines](http://www.i-programmer.info/babbages-bag/223-finite-state-machines.html)
     - It consists of finite states. The new state depends on the old state and the input.
     - A finite state machine can represent any history and a reaction.
