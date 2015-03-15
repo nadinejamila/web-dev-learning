@@ -13,3 +13,11 @@
     - Descriptors
     - Multiple Inheritance: The Diamond Rule
     - Attribute Access
+- [Finite State Machines](http://www.i-programmer.info/babbages-bag/223-finite-state-machines.html)
+    - It consists of finite states. The new state depends on the old state and the input.
+    - A finite state machine can represent any history and a reaction.
+        -  Humans are finite state machines.  
+        -  The Markov chain is a sort of probabilistic version of the finite state machine.
+    - What is the point of such a simple machine?
+        -  Many programming problems are most easily solved by actually implementing a finite state machine. 
+        -  They allow us to explore the theory of computation
