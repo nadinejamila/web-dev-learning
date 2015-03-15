@@ -354,3 +354,42 @@ print args
 # show key value pairs as tuple
 print args.items()
 ```
+
+## Modules
+A module as a specialized dictionary that can store Python code (e.g. variables and functions) so you can access it with the `.` operator. When you import a module there is only one for the entire program unless you do some monster hacks.
+```python
+#This goes to my_module.py
+
+name = 'Nadine'
+
+def whoami(name):
+    print "Hi, I'm", name
+```
+```python
+import my_module
+
+name = my_module.name
+my_module.whoami(name)
+# This prints Nadine
+my_module.woami('Camille')
+# This prints Camille
+```
+## Classes
+ A class is a way to take a grouping of functions and data and place them inside a container so you can access them with the `.` operator. Unlike modules, classess can be used to craft many of these groupings (called "instantiation"), and each one won't interfere with each other.
+ ```python
+class Person(object):
+
+    def __init__(self, name):
+        self.name = name
+
+    def introduction(self):
+        print "Hi, my name is", self.name
+        
+me = Person('Nadine')
+me.introduce()
+# This prints out 'Hi, my name is Nadine'
+
+friend = Person('Camille')
+friend.introduce()
+# This prints out 'Hi, my name is Camille'
+ ```
