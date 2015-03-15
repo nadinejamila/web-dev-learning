@@ -375,7 +375,9 @@ my_module.woami('Camille')
 # This prints Camille
 ```
 ## Classes
- A class is a way to take a grouping of functions and data and place them inside a container so you can access them with the `.` operator. Unlike modules, classess can be used to craft **many** of these groupings (called *instantiation*), and each one won't interfere with each other.
+ A class is a way to take a grouping of functions and data and place them inside a container so you can access them with the `.` operator. 
+ 
+ Unlike modules, classess can be used to craft **many** of these groupings (called *instantiation*), and each one won't interfere with each other.
  ```python
 class Person(object):
 
@@ -385,11 +387,37 @@ class Person(object):
     def introduction(self):
         print "Hi, my name is", self.name
         
+# instantiate a Person
 me = Person('Nadine')
 me.introduce()
 # This prints out 'Hi, my name is Nadine'
 
+# instantiate another Person
 friend = Person('Camille')
 friend.introduce()
 # This prints out 'Hi, my name is Camille'
  ```
+
+## Object-Oriented Programming (OOP) Concepts
+##### Keywords
+- class
+- object
+- instance
+- def
+- self
+- inheritance
+- composition
+- attribute
+- is-a
+- has-a
+
+[description of terms here](http://learnpythonthehardway.org/book/ex41.html)
+
+`super()` runs the __init__ method of a parent class reliably.
+```python
+class D:
+    def save (self):
+	# Call superclass .save()
+        super(D, self).save()
+        # Save D's private information here
+```
