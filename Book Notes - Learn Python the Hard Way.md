@@ -356,7 +356,7 @@ print args.items()
 ```
 
 ## Modules
-A module as a specialized dictionary that can store Python code (e.g. variables and functions) so you can access it with the `.` operator. When you import a module there is only one for the entire program unless you do some monster hacks.
+A module as a specialized dictionary that can store Python code (e.g. variables and functions) so you can access it with the `.` operator. When you import a module there is only **one** for the entire program.
 ```python
 #This goes to my_module.py
 
@@ -375,7 +375,7 @@ my_module.woami('Camille')
 # This prints Camille
 ```
 ## Classes
- A class is a way to take a grouping of functions and data and place them inside a container so you can access them with the `.` operator. Unlike modules, classess can be used to craft many of these groupings (called "instantiation"), and each one won't interfere with each other.
+ A class is a way to take a grouping of functions and data and place them inside a container so you can access them with the `.` operator. Unlike modules, classess can be used to craft **many** of these groupings (called *instantiation*), and each one won't interfere with each other.
  ```python
 class Person(object):
 
