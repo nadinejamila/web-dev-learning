@@ -413,11 +413,38 @@ friend.introduce()
 
 [description of terms here](http://learnpythonthehardway.org/book/ex41.html)
 
-`super()` runs the __init__ method of a parent class reliably.
+## Inheritance
+Inheritance is used to indicate that one class will get most or all of its features from a parent class. 
+###### 3 ways:
+- Implicit Inheritance
+- Override Explicitly
+- Alter Before or After
+	- `super()` runs the method of a parent class
 ```python
-class D:
-    def save (self):
-	# Call superclass .save()
-        super(D, self).save()
-        # Save D's private information here
+class Parent(object):
+
+	def override(self):
+		print "PARENT override()"
+
+	def implicit(self):
+		print "PARENT implicit()"
+
+	def altered(self):
+		print "PARENT altered()"
+
+
+class Child(Parent):
+
+	def override(self):
+		# This function overrides the baseclass' function
+		print "CHILD override()"
+
+	def altered(self):
+		# This function alters the baseclass' function
+		print "CHILD, BEFORE PARENT altered()"
+		super(Child, self).altered()
+		print "CHILD, AFTER PARENT altered()"
+
 ```
+
+## Composition
