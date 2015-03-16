@@ -459,6 +459,11 @@ class Child(Parent):
 #### Multiple Inheritance
 Multiple inheritance is when you define a class that inherits from one or more classes.
 
+```python
+class SuperFun(Child, BadStuff):
+    pass
+```
+
 ## Composition (has-a)
 Another way to get another class' features is to just use them, rather than rely on implicit inheritance. 
 
