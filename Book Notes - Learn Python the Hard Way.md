@@ -413,7 +413,7 @@ friend.introduce()
 
 [description of terms here](http://learnpythonthehardway.org/book/ex41.html)
 
-## Inheritance
+## Inheritance (is-a)
 Inheritance is used to indicate that one class will get most or all of its features from a parent class. 
 ###### 3 ways:
 - Implicit Inheritance
@@ -446,5 +446,60 @@ class Child(Parent):
 		print "CHILD, AFTER PARENT altered()"
 
 ```
+The most common use of `super()` is actually in `__init__` functions in base classes.
 
-## Composition
+```python
+class Child(Parent):
+
+    def __init__(self, stuff):
+        self.stuff = stuff
+        super(Child, self).__init__()
+```
+
+#### Multiple Inheritance
+Multiple inheritance is when you define a class that inherits from one or more classes.
+
+## Composition (has-a)
+Another way to get another class' features is to just use them, rather than rely on implicit inheritance. 
+
+```python
+class Other(object):
+
+    def override(self):
+        print "OTHER override()"
+
+    def implicit(self):
+        print "OTHER implicit()"
+
+    def altered(self):
+        print "OTHER altered()"
+
+class Child(object):
+
+    def __init__(self):
+        self.other = Other()
+
+    def implicit(self):
+        self.other.implicit()
+
+    def override(self):
+        print "CHILD override()"
+
+    def altered(self):
+        print "CHILD, BEFORE OTHER altered()"
+        self.other.altered()
+        print "CHILD, AFTER OTHER altered()"
+
+son = Child()
+
+son.implicit()
+son.override()
+son.altered()
+```
+
+## Inheritance vs Composition
+
+#### Guidelines
+- **Avoid multiple inheritance** if you can. If not, then know the class hierarchy and spend time finding where everything is coming from.
+- **Use composition** to package code into modules that are used in many different unrelated places and situations.
+- Use inheritance only when there are clearly related reusable pieces of code that fit under a single common concept or if you have to because of something you're using.
