@@ -413,7 +413,7 @@ friend.introduce()
 
 [description of terms here](http://learnpythonthehardway.org/book/ex41.html)
 
-## Inheritance (is-a)
+#### Inheritance (is-a)
 Inheritance is used to indicate that one class will get most or all of its features from a parent class. 
 ###### 3 ways:
 - Implicit Inheritance
@@ -456,7 +456,7 @@ class Child(Parent):
         super(Child, self).__init__()
 ```
 
-#### Multiple Inheritance
+###### Multiple Inheritance
 Multiple inheritance is when you define a class that inherits from one or more classes.
 
 ```python
@@ -464,7 +464,7 @@ class SuperFun(Child, BadStuff):
     pass
 ```
 
-## Composition (has-a)
+#### Composition (has-a)
 Another way to get another class' features is to just use them, rather than rely on implicit inheritance. 
 
 ```python
@@ -502,9 +502,9 @@ son.override()
 son.altered()
 ```
 
-## Inheritance vs Composition
+#### Inheritance vs Composition
 
-#### Guidelines
+###### Guidelines
 - **Avoid multiple inheritance** if you can. If not, then know the class hierarchy and spend time finding where everything is coming from.
 - **Use composition** to package code into modules that are used in many different unrelated places and situations.
 - Use inheritance only when there are clearly related reusable pieces of code that fit under a single common concept or if you have to because of something you're using.
