@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+
+import my_site
+my_site.functions.greet()
