@@ -586,7 +586,6 @@ config = {
 
 ## Automated Testing
 
-###### Set-up
 1. Install `nose`.
 
 	```
@@ -609,10 +608,10 @@ config = {
 4. Create tests inside the test file, like so:
 
 	```python
-	# my_first_file_.py
+	# first_file_tests.py
 	
 	from nose.tools import *
-	from my_module import Room
+	from first_file import Room
 	
 	def test_room():
 	    gold = Room("GoldRoom")
