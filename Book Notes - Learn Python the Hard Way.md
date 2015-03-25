@@ -508,3 +508,118 @@ son.altered()
 - **Avoid multiple inheritance** if you can. If not, then know the class hierarchy and spend time finding where everything is coming from.
 - **Use composition** to package code into modules that are used in many different unrelated places and situations.
 - Use inheritance only when there are clearly related reusable pieces of code that fit under a single common concept or if you have to because of something you're using.
+
+## Project Setup
+
+#### Suggested Python packages
+- pip from http://pypi.python.org/pypi/pip
+- distribute from http://pypi.python.org/pypi/distribute
+- nose from http://pypi.python.org/pypi/nose/
+- virtualenv from http://pypi.python.org/pypi/virtualenv
+
+#### Installing your own Python package
+###### The `setup.py` file:
+To install our project, we need to create a `setup.py` file.
+```
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
+config = {
+    'description': 'My Project',
+    'author': 'My Name',
+    'url': 'URL to get it at.',
+    'download_url': 'Where to download it.',
+    'author_email': 'My email.',
+    'version': '0.1',
+    'install_requires': ['nose'],
+    'packages': ['NAME'],
+    'scripts': [],
+    'name': 'projectname'
+}
+
+setup(**config)
+```
+To install the package:
+```
+python setup.py install
+```
+
+#### Sample Project Structure
+The basic directorys structure should look like this:
+```
+skeleton/
+     NAME/
+         __init__.py
+     bin/
+     docs/
+     setup.py
+     tests/
+         NAME_tests.py
+         __init__.py
+```
+where `skeleton` is the name of the project and `NAME` is the name of the python module.
+
+###### Putting a script in the bin directory
+```
+bin/
+      my_script
+```
+Create the script.
+```
+# my_script file
+
+#!/usr/bin/env python
+
+import my_module
+my_module.my_pythonfile.my_function()
+```
+Add the file `setup.py`.
+```
+config = {
+    ...
+    'scripts': ['bin/my_script'],
+    ...
+}
+```
+
+## Automated Testing
+
+###### Set-up
+1. Install `nose`.
+
+	```
+	$ pip install nose
+	```
+2. Create a `tests` folder in the root folder.
+3. For each python file in the root, create a `<file_name>_tests.py`.
+
+	```
+	my_project\
+	       setup.py
+	       my_module\
+		      __init__.py
+		      first_file.py
+		      second_file.py
+	       tests\
+		      first_file_tests.py
+		      second_file_tests.py
+	```
+4. Create tests inside the test file, like so:
+
+	```python
+	# my_first_file_.py
+	
+	from nose.tools import *
+	from my_module import Room
+	
+	def test_room():
+	    gold = Room("GoldRoom")
+	    assert_equal(gold.name, "GoldRoom")
+	```
+5. Run the test in the root folder, like so:
+
+	```
+	$ nosetests
+	```

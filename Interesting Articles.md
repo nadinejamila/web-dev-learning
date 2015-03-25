@@ -13,6 +13,7 @@
     - Descriptors
     - Multiple Inheritance: The Diamond Rule
     - Attribute Access
+- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
 
 #### COMPUTING
 - [Finite State Machines](http://www.i-programmer.info/babbages-bag/223-finite-state-machines.html)
