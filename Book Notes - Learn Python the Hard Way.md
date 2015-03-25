@@ -566,54 +566,56 @@ where `skeleton` is the name of the project and `NAME` is the name of the python
 bin/
       my_script
 ```
-The `my_script` file:
+Create the script.
 ```
+# my_script file
+
 #!/usr/bin/env python
 
 import my_module
 my_module.my_pythonfile.my_function()
 ```
-The `setup.py` file:
+Add the file `setup.py`.
 ```
-setup(
+config = {
     ...
     'scripts': ['bin/my_script'],
     ...
-)
+}
 ```
 
 ## Automated Testing
 
 ###### Set-up
 1. Install `nose`.
-```
-$ pip install nose
-```
+	```
+	$ pip install nose
+	```
 2. Create a `tests` folder in the root folder.
-3. For each python file in the root, create a `my_file_tests.py`.
-```
-my_project\
-       setup.py
-       my_module\
-	      __init__.py
-	      first_file.py
-	      second_file.py
-       tests\
-	      first_file_tests.py
-	      second_file_tests.py
-```
+3. For each python file in the root, create a `<file_name>_tests.py`.
+	```
+	my_project\
+	       setup.py
+	       my_module\
+		      __init__.py
+		      first_file.py
+		      second_file.py
+	       tests\
+		      first_file_tests.py
+		      second_file_tests.py
+	```
 4. Create tests inside the test file, like so:
-```python
-# my_first_file_.py
-
-from nose.tools import *
-from my_module import Room
-
-def test_room():
-    gold = Room("GoldRoom")
-    assert_equal(gold.name, "GoldRoom")
-```
+	```python
+	# my_first_file_.py
+	
+	from nose.tools import *
+	from my_module import Room
+	
+	def test_room():
+	    gold = Room("GoldRoom")
+	    assert_equal(gold.name, "GoldRoom")
+	```
 5. Run the test in the root folder, like so:
-```
-$ nosetests
-```
+	```
+	$ nosetests
+	```
