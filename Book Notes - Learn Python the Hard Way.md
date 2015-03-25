@@ -588,11 +588,13 @@ config = {
 
 ###### Set-up
 1. Install `nose`.
+
 	```
 	$ pip install nose
 	```
 2. Create a `tests` folder in the root folder.
 3. For each python file in the root, create a `<file_name>_tests.py`.
+
 	```
 	my_project\
 	       setup.py
@@ -605,6 +607,7 @@ config = {
 		      second_file_tests.py
 	```
 4. Create tests inside the test file, like so:
+
 	```python
 	# my_first_file_.py
 	
@@ -616,6 +619,7 @@ config = {
 	    assert_equal(gold.name, "GoldRoom")
 	```
 5. Run the test in the root folder, like so:
+
 	```
 	$ nosetests
 	```
