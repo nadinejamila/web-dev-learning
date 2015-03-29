@@ -622,3 +622,26 @@ config = {
 	```
 	$ nosetests
 	```
+	
+## Errors & Exceptions
+
+#### Raising an error
+```
+def parse_verb(word_list):
+    if peek(word_list) == 'verb':
+        return match(word_list, 'verb')
+    else:
+        raise ParserError("Expected a verb next.")
+```
+
+####  Using `try` & `except`
+```
+while True:
+     try:
+         x = int(raw_input("Please enter a number: "))
+         break
+     except ValueError:
+         print "Oops!  That was no valid number.  Try again..."
+```
+
+
