@@ -562,20 +562,16 @@ skeleton/
 where `skeleton` is the name of the project and `NAME` is the name of the python module.
 
 ###### Putting a script in the bin directory
+1. Create the script.
 ```
-bin/
-      my_script
-```
-Create the script.
-```
-# my_script file
+# bin/my_script
 
 #!/usr/bin/env python
 
 import my_module
 my_module.my_pythonfile.my_function()
 ```
-Add the file `setup.py`.
+2. Add the script in `setup.py`.
 ```
 config = {
     ...
