@@ -17,10 +17,10 @@
 ######2. Install Software
 - Install python
 - Set-up the PYTHONPATH
-- Use Setuptools & Pip
-- Install Django
-- Install PIL
-- Install Other packages
+- Use setuptools & pip
+- Install django
+- Install pillow
+- Install other packages
     
 ######3. Set-up the Development Environment
 - Set-up a virtual environment
