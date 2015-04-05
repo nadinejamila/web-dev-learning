@@ -27,20 +27,20 @@
 - Create a code repository
 
 ## Creating a Django project
-###### Create the project folder, `tango_with_django_project`.
+Create the project folder, `tango_with_django_project`.
 ```
 $ django-admin.py startproject tango_with_django_project
 ```
-###### Run the project in your local server.
+Run the project in your local server.
 ```
 python manage.py runserver
 ```
 ## Creating a Django Application
-###### Create the app folder for the `rango` app.
+Create the app folder for the `rango` app.
 ```
 python manage.py startapp rango
 ```
-###### Include the newly created app in the project's settings.
+Include the newly created app in the project's settings.
 ```
 # settings.py
 
@@ -71,4 +71,13 @@ from rango import views
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'))
+```
+Join rango app's urls to your project’s master `urls.py` file.
+```python
+# tango_with_django_project/urls.py
+
+urlpatterns = patterns('',
+    ...
+    url(r'^rango/', include('rango.urls')),
+)
 ```
