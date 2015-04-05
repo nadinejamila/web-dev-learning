@@ -83,9 +83,9 @@ urlpatterns = patterns('',
 ```
 ## Adding Templates
 
-Set the templates directory path in your project’s settings.py file.
+Set the templates directory path in your project’s `settings.py` file.
 
-```
+```python
 # settings.py
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
