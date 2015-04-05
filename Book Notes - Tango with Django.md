@@ -83,7 +83,19 @@ urlpatterns = patterns('',
 ```
 ## Adding Templates
 
-1. Create the template and save it within the templates directory you specified in your project’s settings.py file. You may use Django template variables (e.g. `{{ variable_name }}`) in your template.
+Set the templates directory path in your project’s settings.py file.
+
+```
+# settings.py
+
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+
+TEMPLATE_DIRS = (
+     TEMPLATE_PATH,
+)
+```
+
+Create a `templates` directory in your project folder wherein you save the following template. You may use Django template variables (e.g. `{{ variable_name }}`) in your template.
 
 ```
 # templates/rango/index.html
@@ -102,7 +114,7 @@ urlpatterns = patterns('',
 </html>
 ```
 
-2. Find or create a new view within an application’s `views.py` file. Add your view-specific logic to the view.
+Find or create a new view within an application’s `views.py` file. Add your view-specific logic to the view.
 
 ```python
 # rango/views.py
@@ -117,4 +129,4 @@ def index(request):
     return render(request, 'rango/index.html', context_dict)
 ```
 
-3. Map the view to a URL by modifying your project’s `urls.py` file - and the application-specific `urls.py` file, if any.
+Map the view to a URL by modifying your project’s `urls.py` file - and the application-specific `urls.py` file, if any.
