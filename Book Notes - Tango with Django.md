@@ -130,3 +130,35 @@ def index(request):
 ```
 
 Map the view to a URL by modifying your project’s `urls.py` file - and the application-specific `urls.py` file, if any.
+
+## Using Static Media
+Set the static directory path in your project’s `settings.py` file.
+```python
+# settings.py
+
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
+```
+
+Create a `static` directory in your project folder wherein you save your static files, the directory you specified in your project’s STATICFILES_DIRS tuple within settings.py.
+```
+static/
+    images/
+         rango.jpg
+```
+
+Add a reference to the static media file to a template. For example, an image would be inserted into an HTML page through the use of the <img /> tag. Remember to use the {% load static %} and {% static "filename" %} commands within the template to access the static files.
+```python
+# index.html
+
+{% load static %}
+
+...
+<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /><br />
+...
+```
