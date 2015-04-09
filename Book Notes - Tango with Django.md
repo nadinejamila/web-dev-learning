@@ -165,9 +165,11 @@ Add a reference to the static media file to a template. For example, an image wo
 
 ## Database Setup
 
-With a new Django project, you should first tell Django about the database you intend to use (i.e. configure DATABASES in settings.py). 
+With a new Django project, you should first tell Django about the database you intend to use. 
 
 ```python
+# settings.py
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -208,7 +210,7 @@ class Page(models.Model):
 
 ###### Admin Registration
 
-Update admin.py to include and register your new model(s).
+Update `admin.py` to include and register your new model(s).
 
 ```python
 from django.contrib import admin
@@ -224,3 +226,5 @@ Then perform the migration `$ python manage.py makemigrations`.
 Apply the changes `$ python manage.py migrate`. This will create the necessary infrastructure within the database for your new model(s).
 
 Create/Edit your population script for your new models, if any.
+
+In which case you have to delete your database, run the `migrate` command, then `createsuperuser` command, followed by the `sqlmigrate` commands for each app, then you can populate the database.
