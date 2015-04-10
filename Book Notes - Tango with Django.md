@@ -162,3 +162,69 @@ Add a reference to the static media file to a template. For example, an image wo
 <img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /><br />
 ...
 ```
+
+## Database Setup
+
+With a new Django project, you should first tell Django about the database you intend to use. 
+
+```python
+# settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+```
+
+## Working with Models
+A **model** is a Python object that describes your data model/table. 
+
+###### Adding models
+
+First, create the new models in your application.
+```python
+# rango/models.py
+
+class Category(models.Model):
+    name = models.CharField(max_length=128, unique=True)
+
+    def __unicode__(self):  #For Python 2, use __str__ on Python 3
+        return self.name
+
+class Page(models.Model):
+    category = models.ForeignKey(Category)
+    title = models.CharField(max_length=128)
+    url = models.URLField()
+    views = models.IntegerField(default=0)
+
+    def __unicode__(self):      #For Python 2, use __str__ on Python 3
+        return self.title
+```
+
+*Model/Database Table Relations:*
+- `ForeignKey`, a field type that allows us to create a **one-to-many** relationship.
+- `OneToOneField`, a field type that allows us to define a strict **one-to-one** relationship.
+- `ManyToManyField`, a field type which allows us to define a **many-to-many** relationship.
+
+###### Admin Registration
+
+Update `admin.py` to include and register your new model(s).
+
+```python
+from django.contrib import admin
+from rango.models import Category, Page
+
+admin.site.register(Category)
+admin.site.register(Page)
+```
+###### Database Migration
+
+Then perform the migration `$ python manage.py makemigrations`.
+
+Apply the changes `$ python manage.py migrate`. This will create the necessary infrastructure within the database for your new model(s).
+
+Create/Edit your population script for your new models, if any.
+
+In which case you have to delete your database, run the `migrate` command, then `createsuperuser` command, followed by the `sqlmigrate` commands for each app, then you can populate the database.
