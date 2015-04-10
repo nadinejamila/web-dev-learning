@@ -228,3 +228,12 @@ Apply the changes `$ python manage.py migrate`. This will create the necessary i
 Create/Edit your population script for your new models, if any.
 
 In which case you have to delete your database, run the `migrate` command, then `createsuperuser` command, followed by the `sqlmigrate` commands for each app, then you can populate the database.
+
+## Creating Data Driven Pages
+###### 5 Steps
+
+1. Import the models you wish to use into your application’s `views.py` file.
+2. Within `views.py`, query the model to get the data you want to present.
+3. Pass the results from your model into the template’s context.
+4. Setup your template to present the data to the user.
+5. Map a URL to your view.
