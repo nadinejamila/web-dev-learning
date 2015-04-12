@@ -7,9 +7,15 @@
 		<title>Rango</title>
 	</head>
 	<body>
-		<a href='/rango/register/'>Register Here</a><br />
+		{% if user.is_authenticated %}
+			<a href='/rango/restricted'>Restricted Page</a><br />
+			<a href='/rango/logout/'>Log Out</a><br />
+		{% else %}
+			<a href='/rango/register/'>Register Here</a><br />
+			<a href='/rango/login/'>Log In</a><br />
+		{% endif %}
+
 		<a href="/rango/about/">About</a><br />
-		<a href='/rango/login/'>Log In</a><br />
 
 		{% if user.is_authenticated %}
 			<h1>Rango says... hello {{ user.username }}!</h1>
@@ -42,6 +48,6 @@
 		{% endif %}	
 		
 		<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /><br />
-		
+
 	</body>
 </html>
