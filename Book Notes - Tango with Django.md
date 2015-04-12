@@ -237,3 +237,84 @@ In which case you have to delete your database, run the `migrate` command, then 
 3. Pass the results from your model into the template’s context.
 4. Setup your template to present the data to the user.
 5. Map a URL to your view.
+
+## Working with Forms
+
+1. Create a `forms.py` file within your Django application’s directory to store form-related classes. Create a `ModelForm` class for each model that you wish to represent as a form. Customise the forms as you desire.
+	
+	```python
+	# rango/forms.py
+	from django import forms
+	from rango.models import Category
+	
+	class CategoryForm(forms.ModelForm):
+	    name = forms.CharField(max_length=128, help_text="Please enter the category name.")
+	    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+	    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+	    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+	
+	    class Meta:
+	        model = Category
+	        fields = ('name',)
+	```
+	
+2. Create or update a view to handle the form - including displaying the form, saving form data, and flagging up errors.
+
+	```python
+	# rango/views.py
+	
+	from rango.forms import CategoryForm
+
+	def add_category(request):
+	    if request.method == 'POST':
+	        form = CategoryForm(request.POST)
+	        if form.is_valid():
+	            form.save(commit=True)
+	            return index(request)
+	        else:
+	            print form.errors
+	    else:
+	        form = CategoryForm()
+	    return render(request, 'rango/add_category.html', {'form': form})
+	```
+	
+3. Create or update a template to display the form.
+
+	```
+	<!-- templates/rango/add_category.html -->
+	
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Rango</title>
+		</head>
+		<body>
+			<h1>Add a Category</h1>
+			<form id='category_form' method='post' action='/rango/add_category/'>
+				{% csrf_token %}
+				{% for hidden in form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for field in form.visible_fields %}
+					{{ field.errors }}
+					{{ field.help_text }}
+					{{ field}}
+				{% endfor %}
+				<input type='submit' name='submit' value='Create Category' />
+			</form>
+		</body>
+	</html>
+	```
+
+4. Add a urlpattern to map to the new view.
+
+	```python
+	# rango/urls.py
+	
+	urlpatterns = patterns('',
+	    ...
+	    url(r'^add_category/$', views.add_category, name='add_category'),
+	    ...
+	    )
+	
+	```
