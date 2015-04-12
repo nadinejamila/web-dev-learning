@@ -20,11 +20,13 @@
 		{% if user.is_authenticated %}
 			<h1>Rango says... hello {{ user.username }}!</h1>
 		{% else %}
-			<h1>rango says... hello world!</h1>
+			<h1>Rango says... hello world!</h1>
 		{% endif %}
 
+		{% if user.is_authenticated %}
 		<a href='/rango/add_category/'>Add a New Category</a><br />
-		
+		{% endif %}
+
 		<h3>Top 5 Most Liked Categories</h3>
 		{% if categories %}
 			<ul>
