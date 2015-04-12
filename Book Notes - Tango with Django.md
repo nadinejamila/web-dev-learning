@@ -262,6 +262,7 @@ In which case you have to delete your database, run the `migrate` command, then 
 
 	```python
 	# rango/views.py
+	
 	from rango.forms import CategoryForm
 
 	def add_category(request):
@@ -280,6 +281,8 @@ In which case you have to delete your database, run the `migrate` command, then 
 3. Create or update a template to display the form.
 
 	```
+	<!-- templates/rango/add_category.html -->
+	
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -306,6 +309,8 @@ In which case you have to delete your database, run the `migrate` command, then 
 4. Add a urlpattern to map to the new view.
 
 	```python
+	# rango/urls.py
+	
 	urlpatterns = patterns('',
 	    ...
 	    url(r'^add_category/$', views.add_category, name='add_category'),
