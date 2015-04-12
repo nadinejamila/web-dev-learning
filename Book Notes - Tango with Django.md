@@ -232,11 +232,50 @@ In which case you have to delete your database, run the `migrate` command, then 
 ## Creating Data Driven Pages
 ###### 5 Steps
 
-1. Import the models you wish to use into your application’s `views.py` file.
-2. Within `views.py`, query the model to get the data you want to present.
-3. Pass the results from your model into the template’s context.
-4. Setup your template to present the data to the user.
-5. Map a URL to your view.
+1. Import the models you wish to use into your application’s `views.py` file.  Within `views.py`, query the model to get the data you want to present.
+
+	```
+	# views.py
+	from rango.models import Category
+	
+	def category(request, category_name_slug):
+	    context_dict = {}
+	    try:
+	        category = Category.objects.get(slug=category_name_slug)
+	        context_dict['category_name'] = category.name
+	        pages = Page.objects.filter(category=category)
+	        context_dict['pages'] = pages
+	        context_dict['category'] = category
+	        context_dict['category_name_slug'] = category_name_slug
+	    except Category.DoesNotExist:
+	        pass
+	    return render(request, 'rango/category.html', context_dict)
+	```
+
+2. Pass the results from your model into the template’s context.
+
+3. Setup your template to present the data to the user.
+
+	```
+	<!-- index.html -->
+	
+	{% if category %}
+	    {% if pages %}
+	    <ul>
+	        {% for page in pages %}
+	        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+	        {% endfor %}
+	    </ul>
+	    {% else %}
+	        <strong>No pages currently in category.</strong>
+	    {% endif %}
+	{% else %}
+	    The specified category {{ category_name }} does not exist!
+	{% endif %}
+	```
+
+4. Map a URL to your view.
+
 
 ## Working with Forms
 
@@ -317,4 +356,86 @@ In which case you have to delete your database, run the `migrate` command, then 
 	    ...
 	    )
 	
+	```
+
+## Authenticating Users
+
+
+#### Adding Log-in
+1. Create a login in view to handle user credentials
+
+	```python
+	# views.py
+	
+	def user_login(request):
+	    if request.method == 'POST':
+	        username = request.POST.get('username')
+	        password = request.POST.get('password')
+	        user = authenticate(username=username, password=password)
+	        if user:
+	            if user.is_active:
+	                login(request, user)
+	                return HttpResponseRedirect('/rango')
+	            else:
+	                return HttpResponse('Your Rango account is disabled.')
+	        else:
+	            print 'Invalid login details: {0}, {1}'.format(username, password)
+	            return HttpResponse('Invalid login details supplied.')
+	    else:
+	        return render(request, 'rango/login.html', {})
+	 ```
+
+2. Create a login template to display the login form.
+3. Map the login view to a url.
+4. Provide a link to login from the index page.
+
+#### Restricting Access with a Decorator
+
+1. Place the **decorator** directly above the function signature, and put a @ before naming the decorator. Python will execute the decorator before executing the code of your function/method.
+
+	```python
+	# rango/views.py
+	
+	from django.contrib.auth.decorators import login_required
+	
+	@login_required
+	def restricted(request):
+	    return HttpResponse("Since you're logged in, you can see this text!")
+	```
+	
+2. Define the `LOGIN_URL` with the URL you’d like to redirect users to that are NOT logged in.
+
+	```
+	# settings.py
+	
+	LOGIN_URL = '/rango/login/'
+	```
+
+#### Logging Out
+
+1. Add the a view called user_logout() with the following code:
+
+	```python
+	# views.py
+	
+	@login_required
+	def user_logout(request):
+	    logout(request)
+	    return HttpResponseRedirect('/rango/')
+	```
+
+2. Map the login view to a url.
+
+3. When a user is authenticated and logged in, he or she can see the 'Restricted Page' and 'Logout' links. If he or she isn’t logged in, 'Register Here' and 'Login' are presented. 
+
+	```
+	<!-- index.html -->
+	
+	{% if user.is_authenticated %}
+		<a href="/rango/restricted/">Restricted Page</a><br />
+		<a href="/rango/logout/">Logout</a><br />
+	{% else %}
+		<a href="/rango/register/">Register Here</a><br />
+		<a href="/rango/login/">Login</a><br />
+	{% endif %}
 	```
