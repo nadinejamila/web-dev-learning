@@ -7,9 +7,18 @@
 		<title>Rango</title>
 	</head>
 	<body>
+		<a href='/rango/register/'>Register Here</a><br />
 		<a href="/rango/about/">About</a><br />
-		<h1>Rango says... hello world!</h1>
+		<a href='/rango/login/'>Log In</a><br />
+
+		{% if user.is_authenticated %}
+			<h1>Rango says... hello {{ user.username }}!</h1>
+		{% else %}
+			<h1>rango says... hello world!</h1>
+		{% endif %}
+
 		<a href='/rango/add_category/'>Add a New Category</a><br />
+		
 		<h3>Top 5 Most Liked Categories</h3>
 		{% if categories %}
 			<ul>
@@ -20,6 +29,7 @@
 		{% else %}
 			<strong>There are no categories present.</strong>
 		{% endif %}
+		
 		<h3>Top 5 Most Viewed Pages</h3>
 		{% if pages %}
 			<ul>
@@ -30,6 +40,8 @@
 		{% else %}
 			<strong>There are no pages present.</strong>
 		{% endif %}	
+		
 		<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /><br />
+		
 	</body>
 </html>
