@@ -237,3 +237,12 @@ In which case you have to delete your database, run the `migrate` command, then 
 3. Pass the results from your model into the template’s context.
 4. Setup your template to present the data to the user.
 5. Map a URL to your view.
+
+## Working with Forms
+
+1. Create a `forms.py` file within your Django application’s directory to store form-related classes.
+2. Create a `ModelForm` class for each model that you wish to represent as a form.
+3. Customise the forms as you desire.
+4. Create or update a view to handle the form - including displaying the form, saving form data, and flagging up errors.
+5. Create or update a template to display the form.
+6. Add a urlpattern to map to the new view.
