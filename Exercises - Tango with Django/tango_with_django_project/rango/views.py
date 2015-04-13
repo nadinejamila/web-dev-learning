@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
@@ -12,11 +14,41 @@ def index(request):
     page_list = Page.objects.order_by('-views')[:5]
     context_dict = {'categories': category_list,
                     'pages': page_list}
+    
+    # site visits
+
+    # visits = int(request.COOKIES.get('visits', 1))
+    visits = request.session.get('visits')
+    if not visits:
+        visits = 1
+    reset_last_visit_time = False
+
+    last_visit = request.session.get('last_visit')
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+        if (datetime.now() - last_visit_time).days > 0:
+            visits = visits + 1
+            reset_last_visit_time = True
+    else:
+        reset_last_visit_time = True
+    
+    if reset_last_visit_time:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = visits
+    
+    context_dict['visits'] = visits
+
     return render(request, 'rango/index.html', context_dict)
 
 
 def about(request):
     context_dict = {'boldmessage': "I am me."}
+    visits = request.session.get('visits')
+    if visits:
+        count = visits
+    else:
+        count = 1
+    context_dict['visits'] = count
     return render(request, 'rango/about.html', context_dict)
 
 
