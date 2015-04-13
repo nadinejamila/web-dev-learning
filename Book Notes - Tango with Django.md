@@ -439,3 +439,41 @@ In which case you have to delete your database, run the `migrate` command, then 
 		<a href="/rango/login/">Login</a><br />
 	{% endif %}
 	```
+
+## Template Inheritance
+
+1. Identify the re-occurring parts of each page that are repeated across your application (i.e. header bar, sidebar, footer, content pane).
+
+2. In a base template, i.e. `base.html`, provide the skeleton structure of a standard page along with any common content, and then define a number of blocks which are subject to change depending on which page the user is viewing.
+	
+	```
+	<!DOCTYPE html>
+	
+	<html>
+	    <head lang="en">
+	        <meta charset="UTF-8">
+	        <title>Rango - {% block title %}How to Tango with Django!{% endblock %}</title>
+	    </head>
+	    <body>
+	        {% block body_block %}{% endblock %}
+	    </body>
+	</html>
+	
+	```
+
+3. Create specific templates - all of which inherit from the base template using `extends` - and specify the contents of each block.
+
+	```
+	{% extends 'base.html' %}
+	
+	{% load staticfiles %}
+	
+	{% block title %}{{ category_name }}{% endblock %}
+	
+	{% block body_block %}
+	
+	    <h1>{{ category_name }}</h1>
+	
+	{% endblock %}
+	```
+
