@@ -28,7 +28,6 @@ def category(request, category_name_slug):
         pages = Page.objects.filter(category=category)
         context_dict['pages'] = pages
         context_dict['category'] = category
-        context_dict['category_name_slug'] = category_name_slug
     except Category.DoesNotExist:
         pass
     return render(request, 'rango/category.html', context_dict)
@@ -117,7 +116,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse('Since you are logged in, you can see this text.')
+    return render(request, 'rango/restricted.html', {})
 
 
 @login_required

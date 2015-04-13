@@ -1,15 +1,13 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-{% load static %}
+{% load staticfiles %}
 
-<html>
-	<head>
-		<title>Rango</title>
-	</head>
-	<body>
-		<h1>Rango says...</h1>
-		here is the about page! <strong>{{ boldmessage }}</strong><br />
-		<a href="/rango/">Back to Main</a><br />
-		<img src="{% static "images/rango_poster.jpg" %}" alt="Picture of Rango Poster" /><br />
-	</body>
-</html>
+{% block title %}About Rango{% endblock %}
+
+{% block body_block %}
+
+	<h1>Rango says...</h1>
+	here is the about page! <strong>{{ boldmessage }}</strong><br />
+	<img src="{% static "images/rango_poster.jpg" %}" alt="Picture of Rango Poster" /><br />
+
+{% endblock %}
