@@ -477,3 +477,21 @@ In which case you have to delete your database, run the `migrate` command, then 
 	{% endblock %}
 	```
 
+## Cookies & Sessions
+
+- **Cookies** can keep information in the user's browser until deleted, but they may be blocked.
+- **Sessions** are not reliant on the user allowing a cookie. They are not stored in the browser, and work instead like a token allowing access and passing information while the user has their browser open.
+
+#### Client-side cookies
+1. Check if the cookie you want exists. The `request.COOKIES.has_key('<cookie_name>')` function returns a boolean value indicating whether a cookie <cookie_name> exists on the client’s computer or not.
+2. If the cookie exists, you can then retrieve its value with `request.COOKIES[<cookie_name>]`. Cookies are all returned as strings.
+3. If the cookie doesn’t exist, or you wish to update the cookie, pass the value you wish to save to the **response** you generate. Call `response.set_cookie('<cookie_name>', value)`.
+
+#### Session-based cookies
+This is a more secure alternative to client-side cookies.
+
+1. Make sure that `MIDDLEWARE_CLASSES` in `settings.py` contains `‘django.contrib.sessions.middleware.SessionMiddleware’`.
+2. Configure your session backend `SESSION_ENGINE`.
+3. Check to see if the cookie exists via `requests.sessions.get('<cookie_name>')`.
+4. Update or set the cookie via the session dictionary, `requests.session['<cookie_name>']`.
+
