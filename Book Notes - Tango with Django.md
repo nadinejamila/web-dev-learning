@@ -463,17 +463,17 @@ In which case you have to delete your database, run the `migrate` command, then 
 
 3. Create specific templates - all of which inherit from the base template using `extends` - and specify the contents of each block.
 
-```
-{% extends 'base.html' %}
-
-{% load staticfiles %}
-
-{% block title %}{{ category_name }}{% endblock %}
-
-{% block body_block %}
-
-    <h1>{{ category_name }}</h1>
-
-{% endblock %}
-```
+	```
+	{% extends 'base.html' %}
+	
+	{% load staticfiles %}
+	
+	{% block title %}{{ category_name }}{% endblock %}
+	
+	{% block body_block %}
+	
+	    <h1>{{ category_name }}</h1>
+	
+	{% endblock %}
+	```
 
