@@ -495,3 +495,28 @@ This is a more secure alternative to client-side cookies.
 3. Check to see if the cookie exists via `requests.sessions.get('<cookie_name>')`.
 4. Update or set the cookie via the session dictionary, `requests.session['<cookie_name>']`.
 
+## Using 3rd party packages.
+
+1. Install the package with pip.
+
+	```$ pip install django-registration-redux```
+	
+2. Include the package in `settings.py`.
+
+	```
+	INSTALLED_APPS = (
+		...
+		'registration', # add in the registration package
+	)
+	```
+	
+3. Update the `urlpatterns` so it includes a reference to the registration package.
+
+	```
+	urlpatterns = patterns('',
+		...
+		(r'^accounts/', include('registration.backends.simple.urls')),
+	)
+	```
+	
+4. Read the docs of the 3rd party package to use the rest of its functions.
