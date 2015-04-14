@@ -495,7 +495,7 @@ This is a more secure alternative to client-side cookies.
 3. Check to see if the cookie exists via `requests.sessions.get('<cookie_name>')`.
 4. Update or set the cookie via the session dictionary, `requests.session['<cookie_name>']`.
 
-## Using 3rd party packages.
+## Using 3rd party packages
 
 1. Install the package with pip.
 
