@@ -2,22 +2,29 @@
 
 {% load staticfiles %}
 
-{% block title %}{{ category }}{% endblock %}
+{% block title %}Add Page{% endblock %}
 
 {% block body_block %}
-
-	<h1>Add a Page for {{ category }}</h1>
-	<form id='category_form' method='post' action="{% url 'add_page' category.slug %}">
-		{% csrf_token %}
-		{% for hidden in form.hidden_fields %}
-			{{ hidden }}
-		{% endfor %}
-		{% for field in form.visible_fields %}
-			{{ field.errors }}
-			{{ field.help_text }}
-			{{ field}}
-		{% endfor %}
-		<input type='submit' name='submit' value='Create Category' />
-	</form>
-
+	{% if category %}
+		<div class='page-header'>
+			<h1>Add a Page for <a href="{% url 'category' category.slug %}">{{ category.name }}</a></h1>
+		</div>
+		<div>
+			<form role='form' id='page_form' method='post' action="{% url 'add_page' category.slug %}">
+				{% csrf_token %}
+				{% for hidden in form.hidden_fields %}
+					{{ hidden }}
+				{% endfor %}
+				{% for field in form.visible_fields %}
+					{{ field.errors }}
+					{{ field.help_text }}<br />
+					{{ field}}<br />
+				{% endfor %}
+				<br />
+				<input class='btn btn-primary' type='submit' name='submit' value='Create Page' />
+			</form>
+		</div>
+	{% else %}
+		<p>This category does not exist.</p>
+	{% endif %}
 {% endblock %}

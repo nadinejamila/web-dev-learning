@@ -2,37 +2,52 @@
 
 {% load staticfiles %}
 
+{% block title %}Index{% endblock %}
+
 {% block body_block %}
 
-	{% if user.is_authenticated %}
-		<h1>Rango says... hello {{ user.username }}!</h1>
-	{% else %}
-		<h1>Rango says... hello world!</h1>
-	{% endif %}
+	<div class='page-header'>
+		{% if user.is_authenticated %}
+			<h1>Rango says... hello {{ user.username }}!</h1>
+		{% else %}
+			<h1>Rango says... hello world!</h1>
+		{% endif %}
+	</div>
 
-	<h3>Top 5 Most Liked Categories</h3>
-	{% if categories %}
-		<ul>
-			{% for category in categories %}
-			<li><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<strong>There are no categories present.</strong>
-	{% endif %}
-	
-	<h3>Top 5 Most Viewed Pages</h3>
-	{% if pages %}
-		<ul>
-			{% for page in pages %}
-			<li><a href='{{ page.url }}'>{{ page.title }}</a></li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<strong>There are no pages present.</strong>
-	{% endif %}	
-	
-	<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
+	<div class='row placeholders'>
+		<div class='col-xs-12 col-sm-6 placeholder'>
+			<div class='panel panel-primary'>
+				<div class='panel-heading'>
+					<h4>Top 5 Categories</h4>
+				</div>
+			</div>
+			{% if categories %}
+				<ul class='list-group'>
+					{% for category in categories %}
+					<li class='list-group-item'><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<strong>There are no categories present.</strong>
+			{% endif %}
+		</div>
+		<div class='col-xs-12 col-sm-6 placeholder'>
+			<div class='panel panel-primary'>
+				<div class='panel-heading'>
+					<h4>Top 5 Pages</h4>
+				</div>
+			</div>
+			{% if pages %}
+				<ul class='list-group'>
+					{% for page in pages %}
+					<li class='list-group-item'><a href='{{ page.url }}'>{{ page.title }}</a></li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<strong>There are no pages present.</strong>
+			{% endif %}	
+		</div>
+	</div><!-- row -->
 
 	 <p> visits: {{ visits }}</p>
 {% endblock %}

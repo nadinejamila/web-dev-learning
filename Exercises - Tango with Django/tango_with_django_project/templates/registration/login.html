@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-	<h1>Login</h1>
-	<form method='post' action='.'>
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type='submit' value='Log In' />
-		<input type='hidden' name='next' value='{{ next }}' />
-	</form>
-	<p>Not a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+	<div class='page-header'>
+		<h1>Log In to Rango</h1>
+	</div>
+	<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+	<div>
+		<form class='form-signin' role='form' method='post' action='.'>
+			{% csrf_token %}
+			<h2 class='form-signin-heading'>Please sign in</h2>
+			<input class='form-control' placeholder='Username' id='id_username' maxlength='254' name='username' type='text' required autofocus='' />
+			<input class='form-control' placeholder='Password' id='id_password' name='password' type='password' required />
+			<button class='btb btn-lg btn-primary btn-block' type='submit' value='Submit'>Sign in</button>
+		</form>
+		<p>Not a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+	</div>
 {% endblock %}

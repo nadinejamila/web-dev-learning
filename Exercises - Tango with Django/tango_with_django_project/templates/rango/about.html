@@ -5,9 +5,12 @@
 {% block title %}About Rango{% endblock %}
 
 {% block body_block %}
-
-	<h1>Rango says...</h1>
-	here is the about page! <strong>{{ boldmessage }}</strong><br />
-	<img src="{% static "images/rango_poster.jpg" %}" alt="Picture of Rango Poster" /><br />
-	<p> visits: {{ visits }}</p>
+	<div class='page-header'>
+		<h1>About</h1>
+	</div>
+	<div>
+		This is <strong>{{ boldmessage }}</strong><br />
+		<img src="{% static "images/rango_poster.jpg" %}" alt="Picture of Rango Poster" /><br />
+		<p> visits: {{ visits }}</p>
+	</div>
 {% endblock %}
