@@ -520,3 +520,15 @@ This is a more secure alternative to client-side cookies.
 	```
 	
 4. Read the docs of the 3rd party package to use the rest of its functions.
+
+## Bootstrap for Templates
+
+1. Choose from [Bootstrap's sample layouts](http://getbootstrap.com/getting-started/#examples).
+2. Copy and paste the page source of the chosen layout to your own template.
+3. Replaced all references of `../../` to be `http://getbootstrap.com`.
+4. Remeber to place the reference to the css of the chosen layout after the boostrap css reference.
+
+	```
+	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+	```
+5. Add classes to the template elements for styling. Refer to the [Bootstrap Documentation](http://getbootstrap.com/css/).
