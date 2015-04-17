@@ -532,3 +532,51 @@ This is a more secure alternative to client-side cookies.
 	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 	```
 5. Add classes to the template elements for styling. Refer to the [Bootstrap Documentation](http://getbootstrap.com/css/).
+
+
+## Using Template Tags
+
+**Template Tags** are included in the template used for requesting data, instead of passing data from the views to the context_dict.
+
+1. Create a `templatetags` directory in your app directory. Create 2 files- `__init__.py` and another one containing your template tag code, e.g. `rango_extras.py`.
+
+	```python
+	# rango/templatetags/rango_extras.py
+	
+	from django import template
+	from rango.models import Category
+	
+	register = template.Library()
+	
+	@register.inclusion_tag('rango/cats.html')
+	def get_category_list(cat=None):
+	    return {'cats': Category.objects.all(), 'actual_cat': cat}
+	```
+    	
+2. Create a template to be associated with your template tag.
+
+	```
+	# templates/rango/cats.html
+	
+	{% if cats %}
+	    <ul class="nav nav-sidebar">
+	    {% for c in cats %}
+	        {% if c == actual_cat %}<li class='active'>{% else%}<li>{% endif %}
+	            <a href="{% url 'category'  c.slug %}">{{ c.name }}</a></li>
+	    {% endfor %}
+	{% else %}
+	    <li> <strong >There are no category present.</strong></li>
+	    </ul>
+	{% endif %}
+	```
+	
+3. Access the template tag with `get_category_list`, and include any parameters if any, e.g. `category`, to get the actual category.
+
+	```
+	# base.html
+	
+	{% load rango_extras %}
+	
+	{% get_category_list category %}
+	```
+
