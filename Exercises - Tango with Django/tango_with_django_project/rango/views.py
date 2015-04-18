@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -63,6 +63,15 @@ def category(request, category_name_slug):
         pages = Page.objects.filter(category=category)
         context_dict['pages'] = pages
         context_dict['category'] = category
+
+        # search
+        result_list = []
+        if request.method == 'POST':
+            query = request.POST['query'].strip()
+            if query:
+                result_list = run_query(query)
+        context_dict['result_list'] = result_list
+
     except Category.DoesNotExist:
         pass
     return render(request, 'rango/category.html', context_dict)
@@ -109,15 +118,6 @@ def add_page(request, category_name_slug):
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html', {})
-
-
-def search(request):
-    result_list = []
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
-            result_list = run_query(query)
-    return render(request, 'rango/search.html', {'result_list': result_list})
 
 
 def track_url(request):
