@@ -18,7 +18,7 @@
 			{% if pages %}
 			<ul>
 				{% for page in pages %}
-				<li><a href="{% url 'goto' %}?page_id={{ page.id }}">{{ page.title }} ({{ page.views }} views)</a></li>
+				<li><a href="{% url 'goto' %}?page_id={{ page.id }}">{{ page.title }} ({{ page.views }} {% if page.views == 1 %}view{% else %}views{% endif %})</a></li>
 				{% endfor %}
 			</ul>
 			{% else %}

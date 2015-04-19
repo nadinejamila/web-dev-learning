@@ -61,7 +61,7 @@ def category(request, category_name_slug):
         category.views = category.views + 1
         category.save()
         context_dict['category_name'] = category.name
-        pages = Page.objects.filter(category=category)
+        pages = Page.objects.filter(category=category).order_by('-views')
         context_dict['pages'] = pages
         context_dict['category'] = category
 
