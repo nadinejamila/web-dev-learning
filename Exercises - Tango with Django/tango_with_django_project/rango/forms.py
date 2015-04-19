@@ -42,7 +42,7 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-
+	user = forms.CharField(widget=forms.HiddenInput())
 	class Meta:
 		model = UserProfile
-		fields = ('website', 'picture')
+		fields = ('user','website', 'picture')

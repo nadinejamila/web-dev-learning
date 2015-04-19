@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load bootstrap_toolkit %}
+
+{% block title %}Add Profile{% endblock %}
+
+{% block body_block %}
+	{% if registered %}
+		<div class='page-header'>
+			<h1 class='form-signin-heading'>Thank you</h1>
+		</div>
+		<div>
+			<p>Thank you for registering and adding your profile.</p>
+			<br />
+			<a class='btn btn-primary' href="{% url 'index' %}">Back to Home</a>
+		</div>
+	{% else %}
+		<div class='page-header'>
+			<h1 class='form-signin-heading'>Add Profile</h1>
+		</div>
+		<div>
+			<form role='form' id='user_form' method='post' action="{% url 'register_profile' %}" enctype='multipart/form-data'>
+				{% csrf_token %}
+				{{ form|as_bootstrap }}
+				<br />
+				<input type='hidden' name='user' value='{{ user.pk }}' />
+				<input class='btn btn-primary' type='submit' name='submit' value='Submit' />
+			</form>
+		{% endif %}
+	</body>
+</html>
+
+{% endblock %}

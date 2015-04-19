@@ -4,8 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from rango.bing_search import run_query
 
@@ -133,3 +134,25 @@ def track_url(request):
         else:
             return redirect('index')
     return redirect(page.url)
+
+
+@login_required
+def register_profile(request):
+    context_dict = {}
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        context_dict['registered'] = True
+    except:
+        context_dict['registered'] = False
+
+    if request.method == "POST":
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context_dict['registered'] = True
+    else:
+        form = UserProfileForm()
+    
+    context_dict['form'] = form
+
+    return render(request, 'registration/profile_registration.html', context_dict)
