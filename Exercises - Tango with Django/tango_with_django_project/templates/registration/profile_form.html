@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block body_block %}
+    <div class='page-header'>
+        <h1 class='form-signin-heading'>
+            Update Profile
+        </h1>
+    </div>
+	<div>
+		<form method='post' name='profile_form' action="{% url 'update_profile' user.pk %}" enctype='multipart/form-data'>
+			{% csrf_token %}
+			<!--
+			<label for='username'>Username:&nbsp;</label>
+			<input type='text' name='username' value='{{ person.username }}' /><br />
+
+	        <label for='email'>E-mail:&nbsp;</label>
+	        <input type='email' name='email' value='{{ person.email }}' /><br />
+
+	        <label for='website'>Website:&nbsp;</label>
+	        <input type='url' name='website' value='{{ profile.website }}' /><br />
+
+	        <label for='picture'>Picture: </label>
+	        <input type='file' name='picture' accept='image/*'/><br />
+			-->
+			{{ form.as_p }}
+			<input class='btn btn-primary' type='submit' value='Submit' />
+		</form>
+	</div>
+{% endblock %}

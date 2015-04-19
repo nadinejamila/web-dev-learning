@@ -43,6 +43,14 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
 	user = forms.CharField(widget=forms.HiddenInput())
+
 	class Meta:
 		model = UserProfile
 		fields = ('user','website', 'picture')
+
+
+class CompleteProfileForm(forms.Form):
+	username = forms.CharField(max_length=128)
+	email = forms.EmailField(max_length=200)
+	website = forms.URLField(max_length=200, required=False)
+	picture = forms.FileField(required=False)

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from rango.models import Category, Page, UserProfile
-from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm, CompleteProfileForm
 from rango.bing_search import run_query
 
 
@@ -176,8 +176,49 @@ def profile(request, username):
     context_dict['person'] = user
     return render(request, 'registration/profile.html', context_dict)
 
+
 def users(request):
     context_dict = {}
     users = User.objects.filter(is_active=True)
     context_dict['users'] = users
     return render(request, 'rango/users.html', context_dict)
+
+
+@login_required
+def update_profile(request, user_id):
+    context_dict = {}
+    
+    try:
+        user = User.objects.get(id=user_id)
+        user_profile = UserProfile.objects.get_or_create(user=user)[0]
+    except:
+        print "Can't get user object."
+        return index(request)
+
+    if request.method == 'POST':
+        form = CompleteProfileForm(request.POST)
+        if form.is_valid():
+            
+            user.username = form.cleaned_data['username']
+            user.email = form.cleaned_data['email']
+            user.save()
+            
+            user_profile.website = form.cleaned_data['website']
+            if 'picture-clear' in request.POST:
+                if request.POST['picture-clear']:
+                    user_profile.picture = None
+            if 'picture' in request.FILES:
+                user_profile.picture = request.FILES['picture']
+            user_profile.save()
+            
+            return profile(request, user.username)
+    else:
+        form = CompleteProfileForm(initial={'username': user.username,
+                                            'email': user.email,
+                                            'website': user_profile.website,
+                                            'picture': user_profile.picture})
+
+    context_dict['form'] = form
+    context_dict['person'] = user
+    context_dict['profile'] = user_profile
+    return render(request, 'registration/profile_form.html', context_dict)

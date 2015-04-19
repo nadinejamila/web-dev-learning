@@ -21,5 +21,7 @@
         <label>Website:&nbsp;</label>{{ profile.website }}<br />
     </div>
     <br />
-
+    {% if user == person %}
+        <a class='btn btn-primary' href="{% url 'update_profile' user.pk %}">Update Profile</a>
+    {% endif %}
 {% endblock %}

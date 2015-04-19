@@ -13,4 +13,5 @@ urlpatterns = patterns('',
 	url(r'^add_profile/$', views.register_profile, name='register_profile'),
 	url(r'^profile/(?P<username>[\w\-]+)/$', views.profile, name='profile'),
 	url(r'^users/$', views.users, name='users'),
+	url(r'^update-profile/(?P<user_id>[\d]+)/$', views.update_profile, name='update_profile'),
 	)
