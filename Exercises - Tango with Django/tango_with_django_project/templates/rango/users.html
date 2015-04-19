@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% block body_block %}
+
+	<div class='page-header'>
+		<h1>Users</h1>
+	</div>
+
+	<div class='row'>
+		<div class='col-xs-12'>
+			{% if users %}
+				<div class='list-group'>
+					{% for user in users %}
+					<a class='list-group-item' href="{% url 'profile' username=user.username %}">{{ user }}</a>
+					{% endfor %}
+				</div>
+			{% else %}
+				<strong>There are no users present.</strong>
+			{% endif %}
+		</div>
+	</div><!-- row -->
+
+{% endblock %}

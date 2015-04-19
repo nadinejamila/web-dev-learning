@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load bootstrap_toolkit %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body_block %}
+    <div class='page-header'>
+        <h1 class='form-signin-heading'>
+            {% if user == person %}My {% endif %}Profile
+        </h1>
+    </div>
+    <div>
+        {% if profile.picture %}
+            <img style='width:30%;height:auto;' src="{{ profile.picture.url }}" alt="Profile Picture" /><br />
+        {% endif %}
+        <label>Username:&nbsp;</label>{{ person.username }}<br />
+        <label>E-mail:&nbsp;</label>{{ person.email }}<br />
+        <label>Website:&nbsp;</label>{{ profile.website }}<br />
+    </div>
+    <br />
+
+{% endblock %}

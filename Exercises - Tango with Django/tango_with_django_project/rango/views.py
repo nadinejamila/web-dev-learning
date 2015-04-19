@@ -141,18 +141,43 @@ def register_profile(request):
     context_dict = {}
     try:
         user_profile = UserProfile.objects.get(user=request.user)
-        context_dict['registered'] = True
+        registered = True
     except:
-        context_dict['registered'] = False
+        registered = False
 
     if request.method == "POST":
         form = UserProfileForm(request.POST)
         if form.is_valid():
-            form.save()
-            context_dict['registered'] = True
+            profile = form.save(commit=False)
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            profile.save()
+            registered = True
     else:
         form = UserProfileForm()
     
     context_dict['form'] = form
-
+    context_dict['registered'] = registered
     return render(request, 'registration/profile_registration.html', context_dict)
+
+
+@login_required
+def profile(request, username):
+    context_dict = {}
+    try:
+        user = User.objects.get(username=username)
+        try:
+            user_profile = UserProfile.objects.get(user=user)
+        except:
+            user_profile = None
+    except:
+        return index(request)
+    context_dict['profile'] = user_profile
+    context_dict['person'] = user
+    return render(request, 'registration/profile.html', context_dict)
+
+def users(request):
+    context_dict = {}
+    users = User.objects.filter(is_active=True)
+    context_dict['users'] = users
+    return render(request, 'rango/users.html', context_dict)

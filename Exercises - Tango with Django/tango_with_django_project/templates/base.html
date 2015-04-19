@@ -37,17 +37,19 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-				<li><a href="{% url 'restricted' %}">Restriced Page</a></li>
-				<li><a href="{% url 'auth_logout' %}?next=/rango/">Log Out</a></li>
-				<li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
-				<li><a href="{% url 'add_category' %}">Add a New Category</a></li>
-			{% else %}
-				<li><a href="{% url 'registration_register' %}">Register Here</a></li>
-				<li><a href="{% url 'auth_login' %}">Log In</a></li>
-			{% endif %}
-        <li><a href="{% url 'about' %}">About</a></li>
-				<li><a href="{% url 'index' %}">Home</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'restricted' %}">Restriced Page</a></li>
+            <li><a href="{% url 'profile' username=user %}">Profile</a></li>
+            <li><a href="{% url 'auth_logout' %}?next=/rango/">Log Out</a></li>
+            <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+            <li><a href="{% url 'add_category' %}">Add a New Category</a></li>
+          {% else %}
+            <li><a href="{% url 'registration_register' %}">Register Here</a></li>
+            <li><a href="{% url 'auth_login' %}">Log In</a></li>
+          {% endif %}
+            <li><a href="{% url 'users' %}">Users</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +58,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-        	{% block side_block %}
+          {% block side_block %}
               {% get_category_list category %}
           {% endblock %}
         </div><!-- sidebar -->
@@ -65,7 +67,7 @@
           <!--<h1 class="page-header">Dashboard</h1>-->
 
           <div class="row">
-          	{% block body_block %}{% endblock %} 
+            {% block body_block %}{% endblock %} 
           </div><!-- row -->
 
         </div><!-- main -->
