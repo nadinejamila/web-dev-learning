@@ -1,0 +1,11 @@
+<ul>
+	{% if pages %}
+		{% for page in pages %}
+		<li>
+			<a href="{% url 'goto' %}?page_id={{ page.id }}">{{ page.title }} ({{ page.views }} {% if page.views == 1 %}view{% else %}views{% endif %})</a>
+		</li>
+		{% endfor %}
+	{% else %}
+		<li><strong>There are no pages present.</strong></li>
+	{% endif %}
+</ul>

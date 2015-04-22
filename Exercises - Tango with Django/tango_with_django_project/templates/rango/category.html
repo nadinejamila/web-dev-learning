@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% load rango_extras %}
+
 {% block title %}{{ category_name }}{% endblock %}
 
 {% block body_block %}
@@ -22,17 +24,9 @@
 			<br />
 			{% if user.is_authenticated %}
 				<a class='btn btn-primary' href="{% url 'add_page' category.slug %}">Add a Page</a><br />
-				{% endif %}
-				<br />
-				{% if pages %}
-				<ul>
-					{% for page in pages %}
-					<li><a href="{% url 'goto' %}?page_id={{ page.id }}">{{ page.title }} ({{ page.views }} {% if page.views == 1 %}view{% else %}views{% endif %})</a></li>
-					{% endfor %}
-				</ul>
-			{% else %}
-				<strong>No pages currently in category.</strong>
 			{% endif %}
+				<br />
+				{% get_page_list category %}
 		{% else %}
 			The specified category {{ category_name }} does not exist!
 		{% endif %}
