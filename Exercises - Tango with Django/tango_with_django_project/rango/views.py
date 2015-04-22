@@ -243,6 +243,8 @@ def get_category_list(max_results=0, starts_with=''):
     cat_list = []
     if starts_with:
         cat_list = Category.objects.filter(name__startswith=starts_with)[:max_results]
+    else:
+        cat_list = Category.objects.all()
     if max_results > 0:
         if len(cat_list) > max_results:
             cat_list = cat_list[:max_results]
