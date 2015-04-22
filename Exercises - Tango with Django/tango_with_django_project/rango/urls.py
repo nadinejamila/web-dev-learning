@@ -14,4 +14,5 @@ urlpatterns = patterns('',
 	url(r'^profile/(?P<username>[\w\-]+)/$', views.profile, name='profile'),
 	url(r'^users/$', views.users, name='users'),
 	url(r'^update-profile/(?P<user_id>[\d]+)/$', views.update_profile, name='update_profile'),
+	url(r'^like-category/$', views.like_category, name='like_category'),
 	)
