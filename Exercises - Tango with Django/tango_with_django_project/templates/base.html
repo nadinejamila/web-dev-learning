@@ -74,10 +74,11 @@
               </li>
             </form>
           </ul>
-          <div id='cats'></div>
           <br />
           {% block side_block %}
+          <div id='cats'>
               {% get_category_list category %}
+          </div>
           {% endblock %}
         </div><!-- sidebar -->
 
