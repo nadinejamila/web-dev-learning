@@ -660,6 +660,16 @@ def run_query(search_terms):
 	<script src="{% static "js/rango-jquery.js" %}"></script>
 	```
 
+3. Once the document is ready i.e. the complete page is loaded, then the anonymous function denoted by function(){ } will be executed.
+
+	```javascript
+	// rango-jquery.js
+	
+	$(document).ready(function() {
+	        // JQuery code to be added in here.
+	});
+	```
+
 ## AJAX in Django with jQuery
 Instead of reloading the full page, only part of the page or the data in the page is reloaded.
 
