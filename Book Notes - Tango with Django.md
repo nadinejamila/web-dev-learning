@@ -638,3 +638,24 @@ def run_query(search_terms):
 
     return results
 ```
+
+## jQuery in Django
+
+1. Add the jquery library and your own jquery codes in the static folder.
+
+	```
+	tango_with_django_project /
+		static /
+		 	js /
+		 		jquery-1.11.1.js
+		 		rango-jquery.js
+	```
+	
+2. Include a reference to the static files on your base template.
+
+	```
+	{% load staticfiles %}
+	
+	<script src="{% static "js/jquery-1.11.1.js" %}"></script>
+	<script src="{% static "js/rango-jquery.js" %}"></script>
+	```
