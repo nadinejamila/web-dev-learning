@@ -11,7 +11,7 @@ def get_category_list(cat=None):
 @register.inclusion_tag('rango/pages.html')
 def get_page_list(category=None):
 	if category:
-		pages = Page.objects.filter(category=category)
+		pages = Page.objects.filter(category=category).order_by('-views')
 	else:
 		pages = None
 	return {'pages': pages}

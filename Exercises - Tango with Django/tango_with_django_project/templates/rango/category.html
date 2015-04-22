@@ -26,7 +26,9 @@
 				<a class='btn btn-primary' href="{% url 'add_page' category.slug %}">Add a Page</a><br />
 			{% endif %}
 				<br />
+				<div id='pages'>
 				{% get_page_list category %}
+				</div>
 		{% else %}
 			The specified category {{ category_name }} does not exist!
 		{% endif %}
@@ -51,6 +53,9 @@
 								<div class='list-group-item'>
 									<h4 class='list-group-item-heading'><a href='{{ result.link }}'>{{ result.title }}</a>
 									<p class='list-group-item-text'>{{ result.summary }}</p>
+									{% if user.is_authenticated %}
+									<button class='rango-add btn btn-xs btn-info' data-catid="{{ category.id }}" data-title="{{ result.title }}" data-url="{{ result.link }}" type="btn">Add This</button>
+									{% endif %}
 								</div>
 							{% endfor %}
 						</div><!-- list-group -->

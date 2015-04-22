@@ -16,4 +16,16 @@ $(document).ready(function() {
 			$('#cats').html(data);
 		});
 	});
+
+	$('.rango-add').click(function() {
+		var catid = $(this).attr('data-catid');
+		var title = $(this).attr('data-title');
+		var url = $(this).attr('data-url');
+		var me = $(this);
+		$.get('/rango/auto-add-page/', {category_id: catid, title: title, url: url}, function(data){
+			$('#pages').html(data);
+			me.hide();
+		});
+	});
+
 });
