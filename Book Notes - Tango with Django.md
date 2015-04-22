@@ -659,3 +659,51 @@ def run_query(search_terms):
 	<script src="{% static "js/jquery-1.11.1.js" %}"></script>
 	<script src="{% static "js/rango-jquery.js" %}"></script>
 	```
+
+## AJAX in Django with jQuery
+Instead of reloading the full page, only part of the page or the data in the page is reloaded.
+
+In the following sample code, we add a “Like” button to let users “like” a particular category. The no. of likes are incremented automatically, and the like button is hidden when clicked.
+
+1. Put the necessary `id` or `class` of the HTML element, together with any data you will need e.g. `data-catid`.
+
+	```
+	<button id="likes" data-catid="{{category.id}}" class="btn btn-primary" type="button">
+	```
+	
+2. Create a view which will examine the request, perform the necessary database manipulation, and return the data for display.
+
+	```python
+	# views.py
+	
+	def like_category(request):
+	
+	    cat_id = None
+	    if request.method == 'GET':
+	        cat_id = request.GET['category_id']
+	
+	    likes = 0
+	    if cat_id:
+	        cat = Category.objects.get(id=int(cat_id))
+	        if cat:
+	            likes = cat.likes + 1
+	            cat.likes =  likes
+	            cat.save()
+	
+	    return HttpResponse(likes)
+	```
+
+3. Add some JQuery code to perform an AJAX GET request to call the view, and send data to the template, among other things.
+
+	```javascript
+	$('#likes').click(function(){
+	    var catid;
+	    catid = $(this).attr("data-catid");
+	    $.get('/rango/like_category/', {category_id: catid}, function(data){
+	               $('#like_count').html(data);
+	               $('#likes').hide();
+	    });
+	});
+	```
+	
+4. Map a URL to the view.
