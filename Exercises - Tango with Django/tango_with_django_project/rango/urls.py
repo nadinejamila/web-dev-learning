@@ -15,4 +15,5 @@ urlpatterns = patterns('',
 	url(r'^users/$', views.users, name='users'),
 	url(r'^update-profile/(?P<user_id>[\d]+)/$', views.update_profile, name='update_profile'),
 	url(r'^like-category/$', views.like_category, name='like_category'),
+	url(r'^suggest-category/$', views.suggest_category, name='suggest_category'),
 	)
