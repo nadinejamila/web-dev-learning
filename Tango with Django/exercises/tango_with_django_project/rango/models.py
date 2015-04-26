@@ -11,6 +11,8 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if self.views < 0:
+            self.views = 0
         super(Category, self).save(*args, **kwargs)
         
     def __unicode__(self):  
@@ -19,7 +21,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
 
-        
+
 class Page(models.Model):
     category = models.ForeignKey(Category)
     title = models.CharField(max_length=128)
