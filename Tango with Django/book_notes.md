@@ -717,3 +717,79 @@ In the following sample code, we add a “Like” button to let users “like”
 	```
 	
 4. Map a URL to the view.
+
+
+## Automated Testing
+
+##### Running Tests
+This will run through the tests associated with the rango application.
+
+```
+$ python manage.py test rango
+```
+
+When you run tests, a temporary database is constructed, which your tests can populate, and perform operations on.
+
+##### Testing the models
+
+We have to inherit from `TestCase`. The naming over the method in the class also follows a convention, all tests start with `test_` and they also contain some type of assertion, which is the test. 
+
+Here we are check if the values are equal, with the assertEqual method, but other types of assertions are also possible. 
+
+```python
+# rango/tests.py
+
+from django.test import TestCase
+from rango.models import Category
+
+class CategoryMethodtests(TestCase):
+
+	def test_ensure_views_are_positive(self):
+		"""
+		This should result to True for categories where views are zero or positive.
+		"""
+		cat = Category(name='test', views=-1, likes=0)
+		cat.save()
+		self.assertEqual((cat.views >= 0), True)
+```
+
+Run `$ python manage.py test rango` to see if the test passes. Initially, this test fails. We will need to update the model, to ensure that this requirement is fulfilled. Check again if the test passes.
+
+##### Testing the views
+
+Django tests views with a mock client, that internally makes a call to a django view via the url. In the test, you have access to the response (including the html) and the context dictionary.
+
+The following test checks that when the index page loads, it displays the message that There are no categories present, when the Category model is empty.
+
+```python
+# rango/tests.py
+
+from django.core.urlresolvers import reverse
+
+
+class IndexViewTests(TestCase):
+
+    def test_index_view_with_no_categories(self):
+        """
+        If no questions exist, an appropriate message should be displayed.
+        """
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no categories present.")
+        self.assertQuerysetEqual(response.context['categories'], [])
+```
+
+The Django TestCase has access to a client object, which can make requests. It uses the helper function reverse to look up the url of the index page. Then, it tries to get that page, where the response is stored. The test then checks a number of things: 
+- Did the page load ok? 
+- Does the response, i.e. the html contain the phrase “There are no categories present.”
+- Does the context dictionary contain an empty categories list?
+
+##### Coverage Testing
+
+Code `coverage` measures how much of your code base has been tested, and how much of your code has been put through its paces via tests. 
+
+```
+coverage run --source='.' manage.py test rango
+```
+
+This will run through all the tests and collect the coverage data for the rango application.
