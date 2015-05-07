@@ -34,12 +34,15 @@ class Page(models.Model):
 
     def save(self, *args, **kwargs):
         today = datetime.today()
-        if self.first_visit > today:
-            self.first_visit = today
-        if self.last_visit > today:
-            self.last_visit = today
-        if self.first_visit > self.last_visit:
-            self.first_visit = self.last_visit
+        if self.first_visit:
+            if self.first_visit > today:
+                self.first_visit = today
+        if self.last_visit:
+            if self.last_visit > today:
+                self.last_visit = today
+        if self.last_visit and self.first_visit:
+            if self.first_visit > self.last_visit:
+                self.first_visit = self.last_visit
         super(Page, self).save(*args, **kwargs)
 
     def __unicode__(self):
