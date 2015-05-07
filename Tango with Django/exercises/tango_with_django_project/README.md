@@ -1,0 +1,1 @@
+This folder contains the project that I have built by following the [Tango with Django tutorial](http://www.tangowithdjango.com/book17/index.html). It's deployed at [http://jamilanadine.pythonanywhere.com/rango/](http://jamilanadine.pythonanywhere.com/rango/)
