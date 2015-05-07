@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -27,9 +29,22 @@ class Page(models.Model):
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
+    first_visit = models.DateField(null=True, blank=True)
+    last_visit =  models.DateField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        today = datetime.today()
+        if self.first_visit > today:
+            self.first_visit = today
+        if self.last_visit > today:
+            self.last_visit = today
+        if self.first_visit > self.last_visit:
+            self.first_visit = self.last_visit
+        super(Page, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.title
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

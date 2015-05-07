@@ -106,6 +106,8 @@ def add_page(request, category_name_slug):
                 page = form.save(commit=False)
                 page.category = cat
                 page.views = 0
+                page.first_visit = datetime.now() 
+                page.last_visit = datetime.now()
                 page.save()
                 return category(request, category_name_slug)
         else:
@@ -128,6 +130,7 @@ def track_url(request):
             try:
                 page = Page.objects.get(id=page_id)
                 page.views = page.views + 1
+                page.last_visit = datetime.now()
                 page.save()
             except:
                 return redirect('index')
@@ -274,6 +277,8 @@ def auto_add_page(request):
         if cat_id:
             category = Category.objects.get(id=int(cat_id))
             p = Page.objects.get_or_create(category=category, url=url, title=title)[0]
+            p.first_visit = datetime.now()
+            p.last_visit = datetime.now()
             p.save()
             pages = Page.objects.filter(category=category).order_by('-views')
             context_dict['pages'] = pages

@@ -1,7 +1,9 @@
+from datetime import datetime, timedelta
+
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
-from rango.models import Category
+from rango.models import Category, Page
 
 
 def add_cat(name, views, likes):
@@ -30,6 +32,43 @@ class CategoryMethodTests(TestCase):
         cat = Category(name='Random Category String')
         cat.save()
         self.assertEqual(cat.slug, 'random-category-string')
+
+
+class PageMethodTests(TestCase):
+
+    def test_ensure_visits_are_not_in_future(self):
+        """
+        The first or last visit should be reset to the current date if the date is set in the future.
+        """
+        pages = Page.objects.all()
+        for c in pages:
+            c.delete()
+        tomorrow = datetime.today() + timedelta(1)
+        today = datetime.today()
+        category = Category.objects.get_or_create(name='test')[0]
+        page = Page(category=category, title='Django Docs', url='https://docs.djangoproject.com/en/1.8/')
+        page.first_visit = tomorrow
+        page.last_visit = tomorrow
+        page.save()
+        self.assertEqual(page.first_visit.date(), today.date())
+        self.assertEqual(page.last_visit.date(), today.date())
+
+    def test_ensure_last_vist_is_equal_to_or_after_first_visit(self):
+        """
+        The first visit is set to the date of the last visit if the last visit comes before first visit.
+        """
+        pages = Page.objects.all()
+        for c in pages:
+            c.delete()
+
+        tomorrow = datetime.today() + timedelta(1)
+        today = datetime.today()
+        category = Category.objects.get_or_create(name='test')[0]
+        page = Page(category=category, title='Django Docs', url='https://docs.djangoproject.com/en/1.8/')
+        page.first_visit = tomorrow
+        page.last_visit = today
+        page.save()
+        self.assertEqual(page.first_visit <= page.last_visit, True)
 
 
 class IndexViewTests(TestCase):
