@@ -35,3 +35,17 @@ the browser
 - `<script>` elements are usually included toward the end of the page, just before the closing `</body>` tag.
 - Defer a script’s execution until after the document has rendered by using the `defer` attribute (for IE only).
 - Use `<noscript>` to specify that content is to be shown only if scripting support isn’t available on the browser.
+
+## Language Basics
+
+###### On Syntax
+1. Case-sensitivity - `typeof` != `typeOf`
+2. Identifiers - starts with a letter, `_`, or `$`; functions are in camelCase
+3. Comments - use `//comment` for single line, and `/* comment */` for multi line
+4. Statements - use semicolons `;` for single lines, and code blocks `{ }`for multiple & control statements
+
+###### Variables
+- loosely-typed (can hold any type of data, though not best to switch from one to another)
+- `var` to define a variable in local scope e.g.`var name='Nadine';`
+- no `var` to define a variable globally (not recommended) e.g. `name='Nadine';`
+- define multiple variables e.g. `var message='hi', name='nadine', age='23';`
