@@ -24,3 +24,6 @@
     - What is the point of such a simple machine?
         -  Many programming problems are most easily solved by actually implementing a finite state machine. 
         -  They allow us to explore the theory of computation
+
+#### Django
+- [Django Request-Response Cycle](http://rnevius.github.io/django_request_response_cycle.png)
