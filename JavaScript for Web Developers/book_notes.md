@@ -199,5 +199,23 @@ Rules:
 ```
 switch (expression) {	case value: statement		break;	case value: statement		break;	case value: statement		break;	case value: statement		reak;	default: statement}```
 #### Functions
+Functions allow the encapsulation of statements that can berun anywhere and at any time.
+
+```
+function sum(num1, num2) { return num1 + num2;}
+```
+- Return a value anytime by using the `return` statement. 
+- A function stops and exists when `return` is encountered. 
+- Without a return value, function returns `undefined`.
 ###### Arguments
+- no. of arguments passed in and data types don't matter- no *function signature*
+- `arguments` - an **array** containing zero or more values where arguments are passed	- Any number of arguments can be passed into a function and are accessible through the `arguments` object.	- `arguments` object can be used in conjunction with named arguments.
+	- `arguments` object can also be used to check the number of arguments passed into the function via the length property.- Any named argument that is not passed into the function is automaticallyassigned the value `undefined`.
+```
+function sayHi() {	alert(“Hello “ + arguments[0] + “,” + arguments[1]);}
+```
+
+
 ###### No Overloading
+- no overloading due to lack of function signatures
+- if same name, the last function becomes the owner of that name- simulate overloading by checking the type and number of arguments that have been passed into a function, and then reacting accordingly
