@@ -219,3 +219,22 @@ function sum(num1, num2) { return num1 + num2;}
 ###### No Overloading
 - no overloading due to lack of function signatures
 - if same name, the last function becomes the owner of that name- simulate overloading by checking the type and number of arguments that have been passed into a function, and then reacting accordingly
+## 4. Variables, Scope, and Memory
+
+**variable** - loosely typed; a name for a particularvalue at a particular time
+### Primitive and Reference Values
+
+######Primitive values
+
+- i.e. boolean, null, undefined, number, string
+- data that are stored in one memory locatin on the *stack*, takes up a fixed amount of space- variables are said to be accessed by *value*
+
+######Reference values
+
+- value is just a pointer to another memory location (in the *heap*) where the object is stored
+- cannot be stored on the stack because they don't have fixed sizes
+- a memory address has a fixed size, so it is placed on the *stack*
+- objects may require different amounts of memory so heap is not accessed sequentially
+![Stack and Heap](./images/stack_and_heap.jpg)
+
+
