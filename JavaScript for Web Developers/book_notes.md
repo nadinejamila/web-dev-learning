@@ -233,7 +233,90 @@ function sum(num1, num2) { return num1 + num2;}
 - objects may require different amounts of memory so heap is not accessed sequentially
 ![Stack and Heap](./images/stack_and_heap.jpg)
 
-### Dynamic Properties
+#### Dynamic Properties
 
-
-
+#####Primitive values 
+- can’t have properties added to them
+
+#####Reference values 
+- properties and methods may be defined dynamically (added, changed, or deleted) at any time for later use
+
+```
+var person = new Object();person.name = “Nicholas”;
+```
+#### Copying Values
+
+#####Primitive values - copied value is completely separate from original variable
+
+![Copying Primitive](./images/copying_primitive.jpg)
+
+#####Reference values
+- copied value is actually a pointer to the same object stored on the heap
+- changes to one are reflected on the other
+![Copying Reference](./images/copying_reference.jpg)
+
+####Argument Passing
+- *passed by value* - same way a variable is copied
+- noting more than local variables- passing in a reference value -`obj` is accessing an object by reference, even though it was passed into the function by value- When `obj` is overwritten inside the function, it becomes a pointer to a local object, which is destroyed
+#### Determining Type
+#####Primitive values - use `typeof` operator
+#####Reference values- use `instanceof` operator- syntax: `result = variable instanceof contstructor`
+- returns `true` if the variable is an instance of the given reference type
+
+### Execution Context and Scope
+*Execution Context* - defines what other data a variable or function has access to, and how it should behave (i.e. variable object)
+
+#####Global
+- outermost execution context
+- global variables and functions - created as properties and methods on the `window` object
+- destroyed when the application exits
+
+#####Local
+- function's context is pushed onto a context stack
+- when finished executing, stack is popped, and control is returned to previously executing context
+
+#####*Scope Chain* of variable objects
+
+- created when code is executed in a context
+- provides ordered access to all variables and functions that an execution context has access to
+- front of the scope chain - variable object of the context
+- end of the scope chain - global context
+
+
+![Scope Chain](./images/scope_chain.jpg)
+
+- rectangles - represent execution contexts
+- inner context - **can access everything** from all outer contexts through the scope chain
+- outer contexts - **cannot access anything** within an inner context
+
+#### Scope Chain Augmentation
+Temporary addition to the front of the scope chain (removed after code execution):
+
+- the `catch` block in a `try-catch` statement
+- a `with` statement
+
+#### No block level scopes
+
+```
+if (true) {    var color = “blue”;}alert(color); //”blue”```
+####Variable declaration
+If a variable is initialized without first being declared (no `var`), it getsadded to the global context automatically.
+####Identifier Lookup
+The search starts at the front of the scope chain,looking for an identifier with the given name. This process continues until the search reaches the global context’s variable object.
+![Identifier Lookup](./images/identifier_lookup.jpg)
+### Garbage Collection
+The execution environment is responsible for managing the memory required during code execution. There are 2 strategies:
+
+#####A. Mark-and-Sweep
+1. Mark all variables stored in memory.
+2. Clear marks off of variables that are in context, including referenced variables.
+3. Do a *memory sweep* by destroying marked values and reclaiming memory.
+
+
+#####B. Reference Counting 
+1. Every value keeps track of *how many references* are made to it.2. When the reference count of a value reaches zero, the memory is reclaimed.
+3. This causes problems when circular references exist.
+####Performance
+The garbage collector runs **periodically** and can potentially be an **expensive process** if there is a large number of variable allocations in memory, so the **timing** of the garbage-collection process is important.
+####Managing Memory
+When data is no longer necessary, it's best to set the value to `null` (esp. global variables), freeing up the reference — called *dereferencing* the value.
