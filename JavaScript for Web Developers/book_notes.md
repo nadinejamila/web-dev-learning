@@ -244,7 +244,7 @@ function sum(num1, num2) { return num1 + num2;}
 ```
 var person = new Object();person.name = “Nicholas”;
 ```
-#### Copying Values
+#### Copying Values
 
 #####Primitive values - copied value is completely separate from original variable
 
@@ -305,7 +305,9 @@ If a variable is initialized without first being declared (no `var`), it getsad
 The search starts at the front of the scope chain,looking for an identifier with the given name. This process continues until the search reaches the global context’s variable object.
 ![Identifier Lookup](./images/identifier_lookup.jpg)
 ### Garbage Collection
-The execution environment is responsible for managing the memory required during code execution. There are 2 strategies:
+*execution environment* - responsible for managing the memory required during code execution
+
+*2 strategies:*
 
 #####A. Mark-and-Sweep
 1. Mark all variables stored in memory.
@@ -316,7 +318,198 @@ The execution environment is responsible for managing the memory required during
 #####B. Reference Counting 
 1. Every value keeps track of *how many references* are made to it.2. When the reference count of a value reaches zero, the memory is reclaimed.
 3. This causes problems when circular references exist.
-####Performance
-The garbage collector runs **periodically** and can potentially be an **expensive process** if there is a large number of variable allocations in memory, so the **timing** of the garbage-collection process is important.
-####Managing Memory
-When data is no longer necessary, it's best to set the value to `null` (esp. global variables), freeing up the reference — called *dereferencing* the value.
+#####Performance
+*garbage collector*
+
+- runs **periodically**
+- can potentially be an **expensive process** if there is a large number of variable allocations in memory
+- **timing** is important
+#####Managing Memory
+*dereferencing* 
+
+- freeing up the reference when data is not necessary
+- best to set the value to `null` (esp. global variables)
+
+
+##5. Reference Types
+
+- *Reference types* - similar to classes but implemented differently
+- *reference values* - called "objects", can be created with built-in *reference types* 
+###The Object type 
+- base from which all other reference types inherit basic behavior
+- 2 ways to create an instance:
+	1. `new` operator - e.g. `var person = new Object();`
+	2. object literal notation - e.g. `var person = {};`
+	###The Array type - represents an ordered list of values- 2 ways to create an instance:
+	1. `new` operator - e.g. `var colors = new Array();`
+	2. array literal notation - e.g. `var colors = [];`- provides functionality for manipulating and converting the values
+	- Conversion - `toLocalString()`, `toString()`, `valueOf()`, `join()`
+	- Stacking - `push()`, `pop()`	
+	- Queuing - `shift()`, `push()`, or `unshift()`, `pop()`
+	- Reordering - `reverse()`, `sort()`
+	- Manipulation - `concat()`, `slice()`, `splice()`
+		- deletion
+		- insertion
+		- replacement
+	###The Date type- info on dates and times (i.e. current & calculations)- create an instance with`new` operator
+	- current date - e.g. `var now = new Date();`
+	- from string- e.g. `var someDate = new Date(“May 25, 2004”);`	- UTC - e.g. `var y2k = new Date(Date.UTC(2000, 0));`
+- inherited methods
+	- `toLocaleString()` - includes AM or PM for the time
+	- `toString()` - includes timezone information
+	- `valueOf()` - best for ordering, returns milliseconds
+- formatting
+	- `toDateString()`
+	- `toTimeString()`
+	- `toLocaleDateString()`
+	- `toLocaleTimeString()`
+	- `toUTCString()`
+- component methods - deals directly with *getting* and*setting* specific parts of the date value
+###The RegExp type
+- interface for regular-expression support
+- provides regex functionality- syntax: `var expression = / pattern / flags ;`
+- support flags:
+	- `g` - global mode
+	- `i` - case-insensitive mode
+	- `m` - multiline mode
+- properties - identifies aspects of a regex
+	- `ignoreCase`
+	- `lastIndex`
+	- `multiline`
+	- `source`
+- methods
+	- `exec()`- for capturing groups, returns info on one match at a time
+	- `test()`- checks if pattern matches the argument
+	- `toLocaleString()`
+	- `toString()`
+	- `valueOf()` - returns the regex itself
+	
+- constructor properties - extracts info about the operations by `exec()` or `test()`
+	- `input` or `$_` - original string
+	- `lastMatch` or `$&` - last match
+	- `lastParen` or `$+` - last matched capturing group
+	- `leftContext` or `$`` - string before the matching word
+	- `multiline` or `$*` - whether expressions should be multiline
+	- `rightContext` or `$'` - string after the matching word
+- pattern limitations - some advanced regex features are not available
+	
+###The Function Type
+- function names are pointers to function objects
+- create new function
+
+	**function declaration** - function is available before any code is executed
+
+	```
+	function sum (num1, num2) {		return num1 + num2;	}
+	```
+
+	**function expression** - the function isn't available until the line is executed
+
+	```
+	var sum = function(num1, num2){		return num1 + num2;	};
+	```
+
+	**constructor**
+
+	```
+	var sum = new Function(“num1”, “num2”, “return num1 + num2")
+	```
+	
+- no overloading because last function overwrites previous one (think of function names as pointers!)
+- functions are objects
+	- has an `arguments` object
+	- refer to the function itself as `argument.callee`
+- functions have default properties & methods
+	- properties
+		- `length` - indicates the no. of named arguments the function expects
+		- `prototype` - actual location of all instance methods for reference types
+	- non-inherited methods - calls a function within a specific scope, setting the value of the `this` object inside the function body (ability to augment the scope in which a function runs)
+		- `apply()` - accepts 2 arguments: the scope in which to run the function, and an array of arguments
+		- `call()` - first argument is the scope, but the remaining arguments are passed directly into the function
+	- inherited methods - returns the function's code
+		- `toLocaleString()`
+		- `toString()`
+		- `valueOf()`
+		
+		
+###Primitive Wrapper Types
+With primitive wrapper types, primitive values in JavaScript can be accessed as if they were objects.
+
+#####3 primitive wrapper types
+They should not be instantiated directly!
+
+1. **Boolean**
+	- ```var booleanObject = new Boolean(true);```
+2. **Number**
+	- ```var numberObject = new Number(10);```
+	- `toFixed()` - returns a string representation of a number with a specified number of decimal points
+	- `toExponential()` - returns a string with the number formatted in exponential notation (aka e-notation)
+	- `toPrecision()` - returns either the fixed or exponential representation of a numberdepending on which makes the most sense
+3. **String**
+	- ```var stringObject = new String(“hello world”);```
+	- inherited methods
+		- `valueOf()`
+		- `toLocaleString()`
+		- `toString()`
+	- property
+		- `length` - returns string's no. of characters
+	- Character methods
+		- `charAt()` - returns the character in the given position as a single-character string
+		- `charCodeAt()` - returns the character's character code instead of the actual character
+	- String Manipulation methods
+		- `concat()` - concatenate one or more strings to another
+		- `slice()`
+		- `substring()`
+		- `substr()`
+	- String Location methods
+		- `indexOf()` - begins looking for the substring at the beginning of the string
+		- `lastIndexOf()` - begins looking from the end of the string
+	- string Case methods - if you don't know the language in which the code will be running, use the locale-specific methods
+		- `toLowerCase()`
+		- `toLocaleLowerCase()`
+		- `toUpperCase()`
+		- `toLocaleUpperCase()`
+	- String Pattern-matching methods
+		- `match()` - same as calling `RegExp` object's `exec()` method, accepts a regex string or `RegExp` object
+		- `search()` - returns the index of the first pattern occurrence in the string, or –1 if not found
+		- `replace()` - accepts 2 arguments: a RegExp object or a string (string is not converted to a regular expression), and a string or a function
+		- `split()` - separates the string into an array of substrings based on a separator
+	- The `localCompare()` method
+		- compares one string to another and returns one of three values as follows
+			- If the string should come alphabetically before the string argument, a negative number is returned (most often it's –1).			- If the string is equal to the string argument, 0 is returned.			- If the string should come alphabetically after the string argument, a positive number is returned (most often it's 1).
+	- The `fromCharCode()` Method 
+		- take one or more character codes and convert them into a string
+	- HTML Methods
+		- e.g. `anchor()`, `big()`, `bold()`, ...
+	
+#####Characteristics:
+- Each wrapper type maps to the primitive type of the same name.- When a primitive value is accessed in read mode, a primitive wrapper object is instantiated so that it can be used to manipulate the data.- As soon as a statement involving a primitive value is executed, the wrapper object is destroyed.
+###Built-in ObjectsNo need to explicitly instantiate a built-in object; it is already instantiated.1. **The `Global` Object**	- web browsers implement it as the `window` object
+	- contains all global variables and functions as properties
+	- e.g. `isNaN()`, `isFinite()`, `parseInt()`, `parseFloat()`
+	- URI-Encoding Methods
+		- `encodeURI()` - works on an entire URI
+		- `encodeURIComponent()` - encodes every nonstandard character
+		- `decodeURI()`
+		- `decodeURIComponent()`
+	- The `eval()` Method
+		- works like an entire interpreter, accepts a string of JS as an argument
+		- might compromise security via code injection
+	- Global Object Properties
+		- e.g. special values of `undefined`, `NaN`, `Infinity`
+		- e.g. native reference type constructors, `Object` and `Function`
+	- The Window Object
+		- all variables and functions declared in the global scope becomeproperties on window
+2. **The Math Object** 
+	- contains properties and methods to aid in complex mathematical calculations
+	- Math Object Properties
+		- e.g. `Math.E`, `Math.PI`, `Math.SQRT1_2`
+	- The `min()` & `max()` methods
+	- Rounding methods
+		- `Math.ceil()`
+		- `Math.floor()`
+		- `Math.round()`
+	- The `random()` method - returns a random number between the 0 and 1, excluding 0 and 1
+	- Other methods
+		- e.g. `Math.abs()`, `Math.exp()`, `Math.log()`, ...
+
